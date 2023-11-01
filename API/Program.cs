@@ -1,3 +1,4 @@
+using Application.HobbyLists;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -13,6 +14,14 @@ builder.Services.AddDbContext<DataContext>(opt => {
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddMediatR(serv => serv.RegisterServicesFromAssembly(typeof(HobbyLists.Handler).Assembly));
+
+builder.Services.AddCors(cors => {
+    cors.AddPolicy("addcors", policy =>{
+              policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("addcors");
 app.UseAuthorization();
 
 app.MapControllers();
