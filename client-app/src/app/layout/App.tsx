@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css'
 import { Container, Header, List } from 'semantic-ui-react';
 import { Hobby } from '../models/hobby';
 import NavBar from './NavBar';
+import DisplayHobbyDashBoard from '../../features/activities/dashboard/ActivitiesDashBoard';
 
 function App() {
 
@@ -21,13 +22,7 @@ function App() {
     <>
       <NavBar/>
       <Container style={{marginTop:"7em"}}>
-      <List>
-          {activities.map((activity) => (
-                      <List.Item key= {activity.id}>
-                        {activity.title}  
-                      </List.Item>
-          ))}
-        </List>
+     <DisplayHobbyDashBoard hobbies = {activities} />
       </Container>
         
     </>
